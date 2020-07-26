@@ -216,17 +216,26 @@ class _SearchScreenState extends State<SearchScreen> {
 
   FutureBuilder dataList() {
     return FutureBuilder(
-        future: (isSearch
-            ? fetchCompanyById(http.Client(), int.tryParse(searchString))
-            : fetchAllCompanies(http.Client())),
+        future: fetchCompanyById(http.Client(), int.tryParse(searchString)),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print(snapshot.error);
           }
           return snapshot.hasData
-              ? (isSearch
-                  ? CompanyData(companyData: snapshot.data)
-                  : CompanyList(companies: snapshot.data))
+              ? CompanyData(companyData: snapshot.data)
+              : Center(child: Container());
+        });
+  }
+
+  FutureBuilder fullList() {
+    return FutureBuilder(
+        future: (fetchAllCompanies(http.Client())),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+          }
+          return snapshot.hasData
+              ? CompanyList(companies: snapshot.data)
               : Center(child: Container());
         });
   }
@@ -258,13 +267,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                 IconButton(
                                   icon: Icon(Icons.search),
                                   iconSize: 25,
-                                  onPressed: () {
-                                    if (searchString.trim().length == 0) {
-                                      isSearch = false;
-                                    } else {
-                                      isSearch = true;
-                                    }
-                                  },
                                 )
                               ]),
                               Column(children: [
@@ -278,6 +280,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                       style: _searchButtonTextStyle(),
                                       onChanged: (value) {
                                         searchString = value.toString();
+                                        if (searchString.trim().length == 0) {
+                                          isSearch = false;
+                                        } else {
+                                          isSearch = true;
+                                        }
                                       },
                                     ))
                               ])

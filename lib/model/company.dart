@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:crunch_base/model/stock.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 
 import 'industry.dart';
 import 'investment.dart';
@@ -127,22 +126,18 @@ List<Company> parseCompany(String responseBody) {
 
 Future<List<Company>> fetchAllCompanies(http.Client client) async {
   final response = await client.get(
-      "https://crunchbaseapitest20200720082326.azurewebsites.net/api/Companies");
+      "https://crunchbaseapitest20200720082326.azurewebsites.net/api/companies");
   return compute(parseCompany, response.body);
 }
 
 Future<Company> fetchCompanyById(http.Client client, int id) async {
   final response = await client.get(
-      "https://crunchbaseapitest20200711220929.azurewebsites.net/api/Companies/" +
+      "https://crunchbaseapitest20200720082326.azurewebsites.net/api/companies/" +
           id.toString());
   Map<String, dynamic> mapCompany = json.decode(response.body);
   return Company.fromJson(mapCompany);
 }
 
 void createCompany(http.Client client, Company company) async {
-  String url = "https://crunchbaseapitest20200711220929.azurewebsites.net/api/Companies";
-  Map<String, String> headers = {"Content-type": "application/json"};
-  String json = '{"title": "", "body": "{"name": "000","foundedDate":"2020-02-02"}", "userId": 1}';
-  Response response = await post(url, headers: headers, body: json);
-  String body = response.body;
+
 }
