@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:crunch_base/model/stock.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 import 'industry.dart';
 import 'investment.dart';
@@ -27,8 +29,6 @@ class Company {
   String email;
   bool isApproved;
   String creator;
-  String investmentStageNavigation;
-  String location;
   List<Industry> industryList;
   List<Investment> investment;
   List<Stock> stockHeld;
@@ -53,8 +53,6 @@ class Company {
       this.email,
       this.isApproved,
       this.creator,
-      this.investmentStageNavigation,
-      this.location,
       this.industryList,
       this.investment,
       this.stockHeld});
@@ -72,16 +70,18 @@ class Company {
         legalName: json['legalName'],
         investmentStages: json['investmentStages'],
         description: json['description'],
-        preFundingStockValue: json['preFundingStockValue'],
-        postFundingStockValue: json['postFundingStockValue'],
+        preFundingStockValue: json['preFundingStockValue'] == null
+            ? json['preFundingStockValue']
+            : 0,
+        postFundingStockValue: json['postFundingStockValue'] == null
+            ? json['postFundingStockValue']
+            : 0,
         lastFundingTypeId: json['lastFundingTypeId'],
         creatorId: json['creatorId'],
         phone: json['phone'],
         email: json['email'],
         isApproved: json['isApproved'],
         creator: json['creator'],
-        investmentStageNavigation: json['investmentStageNavigation'],
-        location: json['location'],
         industryList:
             List<Industry>.from(json["industryList"].map((x) => x.toObject())),
         investment:
@@ -111,11 +111,56 @@ class Company {
         email: temp.email,
         isApproved: temp.isApproved,
         creator: temp.creator,
-        investmentStageNavigation: temp.investmentStageNavigation,
-        location: temp.location,
         industryList: temp.industryList,
         investment: temp.investment,
         stockHeld: temp.stockHeld);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'foundedDate': foundedDate,
+      'locationId': locationId,
+      'founder': founder,
+      'operatingStatus': true,
+      'aka': aka,
+      'legalName': legalName,
+      'description': description,
+      'preFundingStockValue': null,
+      'postFundingStockValue': null,
+      'lastFundingTypeId': null,
+      'creatorId': creatorId,
+      'phone': phone,
+      'email': email,
+      'isApproved': false
+    };
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['foundedDate'] = this.foundedDate;
+    data['locationId'] = this.locationId;
+    data['founder'] = this.founder;
+    data['operatingStatus'] = true;
+    data['numberOfEmployees'] = this.numberOfEmployees;
+    data['aka'] = this.aka;
+    data['legalName'] = this.legalName;
+    data['investmentStages'] = 0;
+    data['description'] = null;
+    data['preFundingStockValue'] = 0;
+    data['postFundingStockValue'] = 0;
+    data['lastFundingTypeId'] = null;
+    data['creatorId'] = this.creatorId;
+    data['phone'] = this.phone;
+    data['email'] = this.email;
+    data['isApproved'] = false;
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return super.toString();
   }
 }
 
@@ -138,6 +183,11 @@ Future<Company> fetchCompanyById(http.Client client, int id) async {
   return Company.fromJson(mapCompany);
 }
 
-void createCompany(http.Client client, Company company) async {
-
+Future<void> insert(Company company) async {
+  var bodyValue = company.toJson();
+  print(company.locationId.toString());
+  var body = jsonEncode(bodyValue);
+  await http.post(
+      "https://crunchbaseapitest20200720082326.azurewebsites.net/companies",
+      body: body);
 }

@@ -349,37 +349,6 @@ class CompanyData extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
                     child: Text(
-                        company.investmentStageNavigation == null
-                            ? "Stage navigation: None"
-                            : "Stage navigation: " +
-                                company.investmentStageNavigation.toString(),
-                        overflow: TextOverflow.fade,
-                        style: _companyDataStyle()),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: deviceWidth,
-                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-                    child: Text(
-                        company.location == null
-                            ? "Location: None"
-                            : "Location: " + company.location.toString(),
-                        overflow: TextOverflow.fade,
-                        style: _companyDataStyle()),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: deviceWidth,
-                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-                    child: Text(
                         company.industryList.length == 0
                             ? "Industries: Empty"
                             : "Industries: " + company.industryList.toString(),

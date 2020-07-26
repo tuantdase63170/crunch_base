@@ -1,4 +1,6 @@
 import 'package:crunch_base/model/company.dart';
+import 'package:crunch_base/view/create.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +17,10 @@ class CompanyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     double height = 50;
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -67,7 +72,7 @@ class CompanyList extends StatelessWidget {
                         height: height,
                         decoration: BoxDecoration(
                             border:
-                                Border.all(color: Colors.black12, width: 1)),
+                            Border.all(color: Colors.black12, width: 1)),
                         child: Text(companies[index].description,
                             style: _tableItemTextStyle(),
                             textAlign: TextAlign.center,
@@ -102,7 +107,10 @@ class CompanyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     double height = 50;
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -154,7 +162,7 @@ class CompanyData extends StatelessWidget {
                         height: height,
                         decoration: BoxDecoration(
                             border:
-                                Border.all(color: Colors.black12, width: 1)),
+                            Border.all(color: Colors.black12, width: 1)),
                         child: Text(companyData.description,
                             style: _tableItemTextStyle(),
                             textAlign: TextAlign.center,
@@ -188,7 +196,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String searchString = "";
-  bool isSearch = false;
 
   static TextStyle _hintSearchTextStyle() {
     return TextStyle(color: Colors.black, fontSize: 20);
@@ -242,8 +249,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double deviceHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Container(
@@ -280,11 +293,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                       style: _searchButtonTextStyle(),
                                       onChanged: (value) {
                                         searchString = value.toString();
-                                        if (searchString.trim().length == 0) {
-                                          isSearch = false;
-                                        } else {
-                                          isSearch = true;
-                                        }
                                       },
                                     ))
                               ])
@@ -380,7 +388,24 @@ class _SearchScreenState extends State<SearchScreen> {
                 color: Colors.white,
                 child: SingleChildScrollView(
                     child: Container(
-                        height: deviceHeight - 250, child: dataList())),
+                        height: deviceHeight - 300, child: fullList())),
+              ),
+              Container(
+                width: deviceWidth,
+                height: 50,
+                color: Colors.blueGrey,
+                child: FlatButton(
+                  child: Text(
+                      "Create new Company",
+                    style: _actionTitleTextStyle(),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => new CreateScreen()));
+                  },
+                ),
               )
             ],
           ),
