@@ -274,22 +274,6 @@ class CompanyData extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
                     child: Text(
-                        company.lastFundingTypeId == null
-                            ? "Last-funding type id: None"
-                            : "Last-funding type id: " +
-                                company.lastFundingTypeId.toString(),
-                        overflow: TextOverflow.fade,
-                        style: _companyDataStyle()),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: deviceWidth,
-                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-                    child: Text(
                         company.creatorId == null
                             ? "Creator id: None"
                             : "Creator id: " + company.creatorId.toString(),

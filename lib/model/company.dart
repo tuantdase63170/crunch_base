@@ -21,7 +21,7 @@ class Company {
   String description;
   double preFundingStockValue;
   double postFundingStockValue;
-  int lastFundingTypeId;
+  String lastFundingTypeId;
   int creatorId;
   String phone;
   String email;
