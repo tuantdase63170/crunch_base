@@ -28,7 +28,6 @@ class Company {
   String phone;
   String email;
   bool isApproved;
-  String creator;
   List<Industry> industryList;
   List<Investment> investment;
   List<Stock> stockHeld;
@@ -52,7 +51,6 @@ class Company {
       this.phone,
       this.email,
       this.isApproved,
-      this.creator,
       this.industryList,
       this.investment,
       this.stockHeld});
@@ -81,7 +79,6 @@ class Company {
         phone: json['phone'],
         email: json['email'],
         isApproved: json['isApproved'],
-        creator: json['creator'],
         industryList:
             List<Industry>.from(json["industryList"].map((x) => x.toObject())),
         investment:
@@ -110,7 +107,6 @@ class Company {
         phone: temp.phone,
         email: temp.email,
         isApproved: temp.isApproved,
-        creator: temp.creator,
         industryList: temp.industryList,
         investment: temp.investment,
         stockHeld: temp.stockHeld);
@@ -129,7 +125,7 @@ class Company {
       'preFundingStockValue': null,
       'postFundingStockValue': null,
       'lastFundingTypeId': null,
-      'creatorId': creatorId,
+      'creatorId': 1,
       'phone': phone,
       'email': email,
       'isApproved': false
@@ -155,12 +151,7 @@ class Company {
     data['phone'] = this.phone;
     data['email'] = this.email;
     data['isApproved'] = false;
-  }
-
-  @override
-  String toString() {
-    // TODO: implement toString
-    return super.toString();
+    return data;
   }
 }
 
@@ -184,10 +175,8 @@ Future<Company> fetchCompanyById(http.Client client, int id) async {
 }
 
 Future<void> insert(Company company) async {
-  var bodyValue = company.toJson();
-  print(company.locationId.toString());
-  var body = jsonEncode(bodyValue);
+  print(company.toMap().toString());
   await http.post(
       "https://crunchbaseapitest20200720082326.azurewebsites.net/companies",
-      body: body);
+      body: company.toMap());
 }

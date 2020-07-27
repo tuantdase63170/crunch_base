@@ -150,7 +150,7 @@ class CompanyData extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
                     child: Text(
-                        company.operatingStatus
+                        company.operatingStatus == true
                             ? "Operating status: On going"
                             : "Operating status: Closed",
                         overflow: TextOverflow.fade,
@@ -319,24 +319,9 @@ class CompanyData extends StatelessWidget {
                     padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                     margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
                     child: Text(
-                        company.isApproved == null
+                        company.isApproved == 0
                             ? "Is approved: False"
                             : "Is approved: True",
-                        overflow: TextOverflow.fade,
-                        style: _companyDataStyle()),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: deviceWidth,
-                    padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
-                    child: Text(
-                        company.creator == null
-                            ? "Creator: None"
-                            : "Creator: " + company.creator.toString(),
                         overflow: TextOverflow.fade,
                         style: _companyDataStyle()),
                   )

@@ -27,13 +27,13 @@ class _CreateScreenState extends State<CreateScreen> {
   bool loading = false;
   String name;
   String date;
-  String location;
+  int location;
   String founder;
   String noe;
   String aka;
   String legal;
   String desc;
-  String creator;
+  int creatorId;
   String phone;
   String email;
 
@@ -41,13 +41,13 @@ class _CreateScreenState extends State<CreateScreen> {
     Company company = new Company();
     company.name = name;
     company.foundedDate = date;
-    company.locationId = int.tryParse(location);
+    company.locationId = location;
     company.founder = founder;
     company.numberOfEmployees = noe;
     company.aka= aka;
     company.legalName = legal;
     company.description = desc;
-    company.creatorId = int.tryParse(creator);
+    company.creatorId = creatorId;
     company.phone = phone;
     company.email = email;
     insert(company);
@@ -164,7 +164,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          location = text;
+                                          location = int.tryParse(text);
                                         },
                                       ),
                                     )
@@ -332,7 +332,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          creator = text;
+                                          creatorId = int.tryParse(text);
                                         },
                                       ),
                                     )
