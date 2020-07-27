@@ -17,10 +17,7 @@ class CompanyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double deviceWidth = MediaQuery.of(context).size.width;
     double height = 50;
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -72,7 +69,7 @@ class CompanyList extends StatelessWidget {
                         height: height,
                         decoration: BoxDecoration(
                             border:
-                            Border.all(color: Colors.black12, width: 1)),
+                                Border.all(color: Colors.black12, width: 1)),
                         child: Text(companies[index].description,
                             style: _tableItemTextStyle(),
                             textAlign: TextAlign.center,
@@ -107,10 +104,7 @@ class CompanyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double deviceWidth = MediaQuery.of(context).size.width;
     double height = 50;
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -162,7 +156,7 @@ class CompanyData extends StatelessWidget {
                         height: height,
                         decoration: BoxDecoration(
                             border:
-                            Border.all(color: Colors.black12, width: 1)),
+                                Border.all(color: Colors.black12, width: 1)),
                         child: Text(companyData.description,
                             style: _tableItemTextStyle(),
                             textAlign: TextAlign.center,
@@ -249,14 +243,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         body: Container(
@@ -388,7 +376,10 @@ class _SearchScreenState extends State<SearchScreen> {
                 color: Colors.white,
                 child: SingleChildScrollView(
                     child: Container(
-                        height: deviceHeight - 300, child: fullList())),
+                        height: deviceHeight - 300,
+                        child: searchString.length == 0
+                            ? fullList()
+                            : dataList())),
               ),
               Container(
                 width: deviceWidth,
@@ -396,7 +387,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 color: Colors.blueGrey,
                 child: FlatButton(
                   child: Text(
-                      "Create new Company",
+                    "Create new Company",
                     style: _actionTitleTextStyle(),
                   ),
                   onPressed: () {

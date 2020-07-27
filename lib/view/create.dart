@@ -1,5 +1,4 @@
 import 'package:crunch_base/model/company.dart';
-import 'package:crunch_base/view/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,15 +23,14 @@ class _CreateScreenState extends State<CreateScreen> {
     return TextStyle(color: Colors.black, fontSize: 18);
   }
 
-  bool loading = false;
   String name;
-  String date;
-  int location;
+  String foundedDate;
+  int locationId;
   String founder;
-  String noe;
+  String numberOfEmployees;
   String aka;
-  String legal;
-  String desc;
+  String legalName;
+  String description;
   int creatorId;
   String phone;
   String email;
@@ -40,16 +38,22 @@ class _CreateScreenState extends State<CreateScreen> {
   void _create() {
     Company company = new Company();
     company.name = name;
-    company.foundedDate = date;
-    company.locationId = location;
-    company.founder = founder;
-    company.numberOfEmployees = noe;
-    company.aka= aka;
-    company.legalName = legal;
-    company.description = desc;
-    company.creatorId = creatorId;
-    company.phone = phone;
-    company.email = email;
+    company.foundedDate = null;
+    company.locationId = null;
+    company.founder = null;
+    company.operatingStatus = null;
+    company.numberOfEmployees = null;
+    company.aka= null;
+    company.legalName = null;
+    company.investmentStages = null;
+    company.description = null;
+    company.preFundingStockValue = null;
+    company.postFundingStockValue = null;
+    company.lastFundingTypeId = null;
+    company.creatorId = null;
+    company.phone = null;
+    company.email = null;
+    company.isApproved = null;
     insert(company);
   }
 
@@ -103,7 +107,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -131,12 +135,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          date = text;
+                                          foundedDate = text;
                                         },
                                       ),
                                     )
@@ -159,12 +163,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          location = int.tryParse(text);
+                                          locationId = int.tryParse(text);
                                         },
                                       ),
                                     )
@@ -187,7 +191,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -215,12 +219,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          noe = text;
+                                          numberOfEmployees = text;
                                         },
                                       ),
                                     )
@@ -243,7 +247,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -271,12 +275,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          legal = text;
+                                          legalName = text;
                                         },
                                       ),
                                     )
@@ -299,12 +303,12 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
                                         onChanged: (text) {
-                                          desc = text;
+                                          description = text;
                                         },
                                       ),
                                     )
@@ -327,7 +331,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -355,7 +359,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -383,7 +387,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                           fillColor: Colors.white,
                                           border: new OutlineInputBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(25),
+                                              new BorderRadius.circular(25),
                                               borderSide: new BorderSide()),
                                         ),
                                         style: _inputText(),
@@ -413,10 +417,6 @@ class _CreateScreenState extends State<CreateScreen> {
                         ),
                         onPressed: () {
                           _create();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => new SearchScreen()));
                         },
                       )
                     ],

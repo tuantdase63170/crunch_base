@@ -118,17 +118,24 @@ class Company {
       'foundedDate': foundedDate,
       'locationId': locationId,
       'founder': founder,
-      'operatingStatus': true,
+      'operatingStatus': operatingStatus,
+      'numberOfEmployees': numberOfEmployees,
       'aka': aka,
       'legalName': legalName,
       'description': description,
-      'preFundingStockValue': null,
-      'postFundingStockValue': null,
-      'lastFundingTypeId': null,
-      'creatorId': 1,
+      'preFundingStockValue': preFundingStockValue,
+      'postFundingStockValue': postFundingStockValue,
+      'lastFundingTypeId': lastFundingTypeId,
+      'creatorId': creatorId,
       'phone': phone,
       'email': email,
-      'isApproved': false
+      'isApproved': isApproved,
+      'creator': null,
+      'investmentStagesNavigation': null,
+      'location': null,
+      'industryList': [],
+      'investment': [],
+      'stockHeld': []
     };
   }
 
@@ -174,9 +181,43 @@ Future<Company> fetchCompanyById(http.Client client, int id) async {
   return Company.fromJson(mapCompany);
 }
 
-Future<void> insert(Company company) async {
+void insert(Company company) async {
   print(company.toMap().toString());
-  await http.post(
-      "https://crunchbaseapitest20200720082326.azurewebsites.net/companies",
-      body: company.toMap());
+//  await http.post(
+//      "https://crunchbaseapitest20200720082326.azurewebsites.net/companies",
+//      headers: <String, String>{
+//        'Content-Type': 'application/json; charset=UTF-8',
+//      },
+//      body: jsonEncode(company.toMap()));
+  _makePostRequest(company);
+}
+
+_makePostRequest(Company company) async {
+  String url =
+      'https://crunchbaseapitest20200720082326.azurewebsites.net/companies';
+  Map<String, String> headers = {"Content-Type": "application/json"};
+  String json = '{"body": ' + company.toMap().toString() + '}';
+  Response response = await post(url, headers: headers, body: json);
+  int statusCode = response.statusCode;
+  String body = response.body;
+}
+
+void printObject(Company company) {
+  print(company.name);
+  print(company.foundedDate);
+  print(company.locationId);
+  print(company.founder);
+  print(company.operatingStatus);
+  print(company.numberOfEmployees);
+  print(company.aka);
+  print(company.legalName);
+  print(company.investmentStages);
+  print(company.description);
+  print(company.preFundingStockValue);
+  print(company.postFundingStockValue);
+  print(company.lastFundingTypeId);
+  print(company.creatorId);
+  print(company.phone);
+  print(company.email);
+  print(company.isApproved);
 }
